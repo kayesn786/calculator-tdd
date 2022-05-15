@@ -6,7 +6,7 @@ describe('Calculator App', () => {
     expect(calculator.add(1)).toBe('Invalid type');
   });
 
-  it('It should return zero if empty string is passed', () => {
+  it("It should return zero if empty string '' is passed", () => {
     const calc = require('./calculator');
     const calculator = new calc();
     expect(calculator.add('')).toBe(0);
@@ -54,5 +54,43 @@ describe('Calculator App', () => {
     const calc = require('./calculator');
     const calculator = new calc();
     expect(calculator.add('1,2')).toBe(3);
+  });
+
+  it('It should add n numbers', () => {
+    const calc = require('./calculator');
+    const calculator = new calc();
+    expect(calculator.add('1,2,3,4')).toBe(10);
+  });
+
+  it('It should consider empty strings with comma seperated', () => {
+    const calc = require('./calculator');
+    const calculator = new calc();
+    expect(calculator.add(',2')).toBe(0);
+  });
+
+  it('It should also add the numbers if there is newline character', () => {
+    const calc = require('./calculator');
+    const calculator = new calc();
+    expect(calculator.add('1\n2,3')).toBe(6);
+  });
+  it('It should also add the numbers if there is trailing newline character', () => {
+    const calc = require('./calculator');
+    const calculator = new calc();
+    expect(calculator.add('\n1\n2,3')).toBe(6);
+  });
+  it('It should not add the numbers if one of them is empty', () => {
+    const calc = require('./calculator');
+    const calculator = new calc();
+    expect(calculator.add('1,\n')).toBe(0);
+  });
+  it('It should add the numbers with custom delimeters', () => {
+    const calc = require('./calculator');
+    const calculator = new calc();
+    expect(calculator.add('//;\n1;2')).toBe(3);
+  });
+  it('It should return zero if there is delimeter mismatch', () => {
+    const calc = require('./calculator');
+    const calculator = new calc();
+    expect(calculator.add('//;\n#1#2')).toBe(0);
   });
 });
